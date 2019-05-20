@@ -82,5 +82,5 @@ def execute_depd(args, root_dir=None):
 
     print_command_factory('depd')({
         'key': key,
-        'depd': args['dep'],
+        'depd': args['depd'],
     }, root_dir=root_dir)

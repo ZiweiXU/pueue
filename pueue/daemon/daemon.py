@@ -464,6 +464,10 @@ class Daemon():
         """Edit the command of a specific entry."""
         key = payload['key']
         depd = payload['depd']
+        try:
+            depd = [int(i) for i in depd]
+        except:
+            answer = {'message': 'Dependency specification not understood', 'status': 'error'}
         if self.queue[key]:
             if self.queue[key]['status'] in ['queued', 'stashed']:
                 self.queue[key]['depd'] = depd

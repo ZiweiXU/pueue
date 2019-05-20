@@ -83,16 +83,19 @@ class Queue():
             Int: If a valid entry is found.
 
         """
+
+        def _depd_ok(key):
+            ok = True
+            for d_key in self.queue[key]['depd']:
+                ok = ok and self.queue[d_key]['status'] == 'done'
+            return ok
+
         smallest = None
         for key in self.queue.keys():
             if self.queue[key]['status'] == 'queued':
-                if self.queue[key]['depd'] == -1:
+                if self.queue[key]['depd'] == [-1] or _depd_ok(key):
                     if smallest is None or key < smallest:
                         smallest = key
-                else:
-                    if self.queue[key]['depd'] in self.queue.keys() and self.queue[self.queue[key]['depd']]['status'] == 'done':
-                        if smallest is None or key < smallest:
-                            smallest = key
         return smallest
 
     def read(self):
@@ -129,7 +132,7 @@ class Queue():
         self.queue[self.next_key]['stderr'] = ''
         self.queue[self.next_key]['start'] = ''
         self.queue[self.next_key]['end'] = ''
-        self.queue[self.next_key]['depd'] = -1
+        self.queue[self.next_key]['depd'] = [-1]
 
         self.next_key += 1
         self.write()

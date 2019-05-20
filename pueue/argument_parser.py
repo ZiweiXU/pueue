@@ -139,7 +139,7 @@ edit_subcommand = subparsers.add_parser(
 edit_subcommand.add_argument(
     '-k', '--key', type=int, help='The index of the entry to be edited.')
 edit_subcommand.add_argument(
-    '-d', '--dep', type=int, help='The specified dependency.')
+    '-d', '--depd', nargs='+', help='The specified dependency.')
 edit_subcommand.set_defaults(func=execute_depd)
 
 # Switch
