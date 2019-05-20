@@ -229,6 +229,7 @@ class Daemon():
                                 'add': self.add,
                                 'remove': self.remove,
                                 'edit': self.edit_command,
+                                'depd': self.edit_depd,
                                 'switch': self.switch,
                                 'send': self.pipe_to_process,
                                 'status': self.send_status,
@@ -459,6 +460,24 @@ class Daemon():
         # Pause all processes and the daemon
         return answer
 
+    def edit_depd(self, payload):
+        """Edit the command of a specific entry."""
+        key = payload['key']
+        depd = payload['depd']
+        if self.queue[key]:
+            if self.queue[key]['status'] in ['queued', 'stashed']:
+                self.queue[key]['depd'] = depd
+                answer = {'message': 'Dependency updated', 'status': 'error'}
+            else:
+                answer = {'message': "Entry is not 'queued' or 'stashed'",
+                          'status': 'error'}
+        else:
+            answer = {'message': 'No entry with this key', 'status': 'error'}
+
+        # Pause all processes and the daemon
+        return answer
+
+
     def stash(self, payload):
         """Stash the specified processes."""
         succeeded = []
@@ -551,6 +570,11 @@ class Daemon():
         """Add a entry to the queue."""
         self.queue.add_new(payload)
         return {'message': 'Entry added', 'status': 'success'}
+
+    def depd(self, payload):
+        """Add dependency for a task"""
+
+        return None
 
     def remove(self, payload):
         """Remove specified entries from the queue."""

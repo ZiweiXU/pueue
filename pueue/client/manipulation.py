@@ -64,3 +64,23 @@ def execute_edit(args, root_dir=None):
         'key': key,
         'command': edited_command,
     }, root_dir=root_dir)
+
+
+def execute_depd(args, root_dir=None):
+    key = args['key']
+    status = command_factory('status')({}, root_dir=root_dir)
+    # Check if queue is not empty, the entry exists and is queued or stashed
+    if not isinstance(status['data'], str) and key in status['data']:
+        if status['data'][key]['status'] in ['queued', 'stashed']:
+            command = status['data'][key]['command']
+        else:
+            print("Entry is not 'queued' or 'stashed'")
+            sys.exit(1)
+    else:
+        print('No entry with this key')
+        sys.exit(1)
+
+    print_command_factory('depd')({
+        'key': key,
+        'depd': args['dep'],
+    }, root_dir=root_dir)
