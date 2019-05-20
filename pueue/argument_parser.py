@@ -84,6 +84,18 @@ show_subcommand.add_argument(
     '--key', '-k',  type=int,
     help='Show the output of a specific process.'
 )
+show_subcommand.add_argument(
+    '-o', '--stdout',  action='store_true',
+    help='Show the stdout of a specific process.'
+)
+show_subcommand.add_argument(
+    '-e', '--stderr',  action='store_true',
+    help='Show the stderr of a specific process.'
+)
+show_subcommand.add_argument(
+    '-oe',  action='store_true',
+    help='Show the stdout and stderr of a specific process.'
+)
 
 show_subcommand.set_defaults(func=execute_show)
 

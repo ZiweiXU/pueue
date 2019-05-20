@@ -220,9 +220,11 @@ def execute_show(args, root_dir):
             curses.echo()
             curses.endwin()
     else:
-        print('Stdout output:\n')
-        stdoutDescriptor.seek(0)
-        print(get_descriptor_output(stdoutDescriptor, key))
-        print('\n\nStderr output:\n')
-        stderrDescriptor.seek(0)
-        print(get_descriptor_output(stderrDescriptor, key))
+        if args['stdout'] or args['oe']:
+            print('Stdout output:\n')
+            stdoutDescriptor.seek(0)
+            print(get_descriptor_output(stdoutDescriptor, key))
+        if args['stderr'] or args['oe']:
+            print('\n\nStderr output:\n')
+            stderrDescriptor.seek(0)
+            print(get_descriptor_output(stderrDescriptor, key))
