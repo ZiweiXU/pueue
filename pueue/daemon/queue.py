@@ -85,6 +85,10 @@ class Queue():
         """
 
         def _depd_ok(key):
+            if 'depd' not in self.queue[key].keys():
+                return True
+            if 'depd' in self.queue[key].keys() and self.queue[key]['depd'] == [-1]:
+                return True
             ok = True
             for d_key in self.queue[key]['depd']:
                 ok = ok and self.queue[d_key]['status'] == 'done'
@@ -93,7 +97,7 @@ class Queue():
         smallest = None
         for key in self.queue.keys():
             if self.queue[key]['status'] == 'queued':
-                if self.queue[key]['depd'] == [-1] or _depd_ok(key):
+                if _depd_ok(key):
                     if smallest is None or key < smallest:
                         smallest = key
         return smallest

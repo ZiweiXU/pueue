@@ -229,3 +229,5 @@ def execute_show(args, root_dir):
             print('\n\nStderr output:\n')
             stderrDescriptor.seek(0)
             print(get_descriptor_output(stderrDescriptor, key))
+        else:
+            print('File descriptor needed. See -h for details.')

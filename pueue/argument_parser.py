@@ -78,24 +78,24 @@ custom_shell_subcommand.set_defaults(
 # Show
 show_subcommand = subparsers.add_parser('show', help='Shows the output of the currently running process')
 show_subcommand.add_argument(
+    '-k', '--key', type=int, required=True,
+    help='Specifiy the key of the task whose output is to be shown.'
+)
+show_subcommand.add_argument(
     '-w', '--watch', action='store_true',
     help='Get live output in a curses session. Like tail -f.'
 )
 show_subcommand.add_argument(
-    '--key', '-k',  type=int,
-    help='Show the output of a specific process.'
-)
-show_subcommand.add_argument(
     '-o', '--stdout',  action='store_true',
-    help='Show the stdout of a specific process.'
+    help='Show the stdout of the specified task.'
 )
 show_subcommand.add_argument(
     '-e', '--stderr',  action='store_true',
-    help='Show the stderr of a specific process.'
+    help='Show the stderr of the specified task.'
 )
 show_subcommand.add_argument(
     '-oe',  action='store_true',
-    help='Show the stdout and stderr of a specific process.'
+    help='Show the stdout and stderr of a specific task.'
 )
 
 show_subcommand.set_defaults(func=execute_show)
@@ -139,7 +139,7 @@ edit_subcommand = subparsers.add_parser(
 edit_subcommand.add_argument(
     '-k', '--key', type=int, help='The index of the entry to be edited.')
 edit_subcommand.add_argument(
-    '-d', '--depd', nargs='+', help='The specified dependency.')
+    '-d', '--depd', nargs='+', help='The specified dependencies as a list of keys.')
 edit_subcommand.set_defaults(func=execute_depd)
 
 # Switch
