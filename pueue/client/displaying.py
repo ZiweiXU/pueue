@@ -225,7 +225,7 @@ def execute_show(args, root_dir):
             print('Stdout output:\n')
             stdoutDescriptor.seek(0)
             print(get_descriptor_output(stdoutDescriptor, key))
-        if args['stderr'] or args['oe']:
+        elif args['stderr'] or args['oe']:
             print('\n\nStderr output:\n')
             stderrDescriptor.seek(0)
             print(get_descriptor_output(stderrDescriptor, key))
