@@ -231,6 +231,8 @@ class ProcessHandler():
             self.paused.remove(key)
             return True
         elif key not in self.processes:
+            if key not in self.queue.keys():
+                return False
             if self.queue[key]['status'] in ['queued', 'stashed']:
                 self.spawn_new(key)
                 return True
