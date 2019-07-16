@@ -573,7 +573,7 @@ class Daemon():
     def add(self, payload):
         """Add a entry to the queue."""
         self.queue.add_new(payload)
-        return {'message': 'Entry added', 'status': 'success'}
+        return {'message': f'Entry added, key={self.queue.next_key-1}', 'status': 'success'}
 
     def depd(self, payload):
         """Add dependency for a task"""
