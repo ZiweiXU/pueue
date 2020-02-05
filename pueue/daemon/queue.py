@@ -91,7 +91,8 @@ class Queue():
                 return True
             ok = True
             for d_key in self.queue[key]['depd']:
-                ok = ok and self.queue[d_key]['status'] == 'done'
+                if d_key in self.queue.keys():
+                    ok = ok and self.queue[d_key]['status'] == 'done'
             return ok
 
         smallest = None
