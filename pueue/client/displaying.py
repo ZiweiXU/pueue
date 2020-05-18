@@ -86,7 +86,7 @@ def execute_status(args, root_dir=None):
         for i, entry in enumerate(table.table_data):
             for j, string in enumerate(entry):
                 max_width = customWidth[j]
-                wrapped_string = '\n'.join(wrap(str(string), min(80, max_width)))
+                wrapped_string = '\n'.join(wrap(str(string), max(80, max_width)))
                 if j == 1:
                     if wrapped_string == 'done' or wrapped_string == 'running' or wrapped_string == 'paused':
                         wrapped_string = Color('{autogreen}' + '{}'.format(wrapped_string) + '{/autogreen}')
